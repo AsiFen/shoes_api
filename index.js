@@ -10,10 +10,12 @@ import session from 'express-session';
 
 //conection to the database using pg-promise and dotevn
 import db from './db/connection.js';
-
 import ShoesDB from './db/db_logic.js';
+import Router from './routes/route.js';
 
 let shoesDB = ShoesDB(db);
+
+let router = Router(shoesDB);
 
 let app = express();
 
@@ -36,12 +38,24 @@ app.use(express.static('public'))
 
 
 //List all shoes in stock
-app.get('/api/shoes', async (req, res) => {
-    let data = await shoesDB.all();
-    console.log(data);
-    res.send(data)
-    res.end;
-})
+app.get('/api/shoes', router.show)
+
+app.get('/api/shoes/brand/:brandname', router.brand_name)
+
+app.get('api/shoes/size/:size', router.allSize)
+
+app.get('/api/shoes/brand/:brandname/size/:size', router.brand_and_size)
+
+app.post('/api/shoes/sold/:id', router.update_stock)
+
+app.post('/api/shoes', router.add)
+
+
+
+
+
+
+
 
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 9999;
