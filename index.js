@@ -10,7 +10,7 @@ import session from 'express-session';
 
 //conection to the database using pg-promise and dotevn
 import db from './db/connection.js';
-import ShoesDB from './db/db_logic.js';
+import ShoesDB from './services/shoes_services.js';
 import Router from './routes/route.js';
 
 let shoesDB = ShoesDB(db);
