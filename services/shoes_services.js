@@ -3,6 +3,7 @@ export default function ShoesDB(db) {
     async function all() {
         try {
             const results = await db.any('SELECT * FROM shoes');
+            console.log(results);
             return results;
         } catch (error) {
             return false
