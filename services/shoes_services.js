@@ -3,13 +3,13 @@ export default function ShoesDB(db) {
     async function all() {
         try {
             const results = await db.any('SELECT * FROM shoes');
-            console.log(results);
+          //  console.log(results);
             return results;
         } catch (error) {
             return false
         }
     }
-
+    all()
     async function shoe_name(brand) {
         try {
             const results = await db.any('SELECT shoe_name FROM shoes WHERE brand = $1', [brand])
@@ -54,7 +54,7 @@ export default function ShoesDB(db) {
                 shoe_details.shoe_size,
                 shoe_details.price,
                 shoe_details.quantity,
-               shoe_details.img_url]
+                shoe_details.img_url]
 
             await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6)', [data])
 

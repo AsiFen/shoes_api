@@ -2,8 +2,8 @@ export default function Router(shoesDB) {
 
     async function show(req, res) {
         let data = await shoesDB.all();
-        console.log(data);
-       // res.json( data )
+        console.log(data, '------------------------------');
+        res.json( data )
         res.end;
     }
 
