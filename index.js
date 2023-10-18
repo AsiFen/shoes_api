@@ -19,6 +19,10 @@ let router = Router(shoesDB);
 
 let app = express();
 
+import cors from "cors";
+
+app.use(cors());
+
 app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 // initialise session middleware - flash-express depends on it
