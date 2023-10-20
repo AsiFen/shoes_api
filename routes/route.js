@@ -4,7 +4,7 @@ export default function Router(shoesDB) {
         let data = await shoesDB.all();
         console.log(data, '------------------------------');
         res.json( data )
-        res.end;
+        //res.end;
     }
 
     async function brand_name(req, res) {
