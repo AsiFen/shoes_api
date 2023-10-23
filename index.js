@@ -43,7 +43,7 @@ app.use(express.static('public'))
 
 //List all shoes in stock
 app.get('/api/shoes', router.show)
-
+app.get('/api/shoes/brandnames', router.getBrand)
 app.get('/api/shoes/brand/:brandname', router.brand_name)
 
 app.get('api/shoes/size/:size', router.allSize)

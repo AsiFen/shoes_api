@@ -3,13 +3,22 @@ export default function ShoesDB(db) {
     async function all() {
         try {
             const results = await db.any('SELECT * FROM shoes');
-            console.log(results);
             return results;
         } catch (error) {
             return false
         }
     }
-    
+
+    async function getBrandName() {
+        try {
+            let results = await db.any('select distinct brand from shoes');
+           // console.log(results);
+           return results;
+        } catch (error) {
+            return false
+        }
+    }
+
     async function shoe_name(brand) {
         try {
             const results = await db.any('SELECT * FROM shoes WHERE brand = $1', [brand])
@@ -69,6 +78,7 @@ export default function ShoesDB(db) {
         allSizes,
         add_shoes,
         shoe_name,
+        getBrandName,
         getBrandAndSize
     }
 }

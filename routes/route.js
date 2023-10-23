@@ -2,8 +2,7 @@ export default function Router(shoesDB) {
 
     async function show(req, res) {
         let data = await shoesDB.all();
-        console.log(data, '------------------------------');
-        res.json( data )
+        res.json(data)
         //res.end;
     }
 
@@ -12,6 +11,12 @@ export default function Router(shoesDB) {
         let shoe_name = await shoesDB.shoe_name(brand);
         res.json(shoe_name);
         res.end;
+    }
+
+    async function getBrand(req, res) {
+        let brandnames = await shoesDB.getBrandName();
+        console.log(brandnames);
+        res.json(brandnames);
     }
 
     async function allSize(req, res) {
@@ -26,9 +31,7 @@ export default function Router(shoesDB) {
         let size = req.params.size;
         let brand = req.params.brand;
         let getBrandAndSize = await shoesDB.getBrandAndSize(size, brand)
-        res.json({
-            getBrandAndSize
-        })
+        res.json(getBrandAndSize)
         res.end;
     }
 
@@ -52,12 +55,13 @@ export default function Router(shoesDB) {
             img_url: req.body.img_url
         }
 
-       await shoesDB.add(data)
+        await shoesDB.add(data)
     }
     return {
         add,
         show,
         allSize,
+        getBrand,
         brand_name,
         update_stock,
         brand_and_size,
