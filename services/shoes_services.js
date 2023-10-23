@@ -9,10 +9,10 @@ export default function ShoesDB(db) {
             return false
         }
     }
-    all()
+    
     async function shoe_name(brand) {
         try {
-            const results = await db.any('SELECT shoe_name FROM shoes WHERE brand = $1', [brand])
+            const results = await db.any('SELECT * FROM shoes WHERE brand = $1', [brand])
             return results;
         } catch (error) {
             return false
