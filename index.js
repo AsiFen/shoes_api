@@ -45,21 +45,15 @@ app.use(express.static('public'))
 app.get('/api/shoes', router.show)
 app.get('/api/shoes/brandnames', router.getBrand)
 app.get('/api/shoes/brand/:brandname', router.brand_name)
-
-app.get('api/shoes/size/:size', router.allSize)
-
+app.get('/api/shoes/sizes', router.getAllsize)
+app.get('/api/shoes/size/:size', router.allSize)
 app.get('/api/shoes/brand/:brandname/size/:size', router.brand_and_size)
+app.get('/api/shoes/colors', router.getAllColors)
+app.get('/api/shoes/colors/:color', router.filterByColor)
 
 app.post('/api/shoes/sold/:id', router.update_stock)
 
 app.post('/api/shoes', router.add)
-
-
-
-
-
-
-
 
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 9999;

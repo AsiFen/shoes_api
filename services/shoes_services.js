@@ -1,76 +1,101 @@
 export default function ShoesDB(db) {
+    const handleDatabaseError = (error) => {
+        //console.error(error);
+        return error;
+    };
 
-    async function all() {
+    const all = async () => {
         try {
-            const results = await db.any('SELECT * FROM shoes');
-            return results;
+            return await db.any('SELECT * FROM shoes');
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function getBrandName() {
+    const getBrandName = async () => {
         try {
-            let results = await db.any('select distinct brand from shoes');
-           // console.log(results);
-           return results;
+            return await db.any('SELECT DISTINCT brand FROM shoes');
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function shoe_name(brand) {
+    const shoe_name = async (brand) => {
         try {
-            const results = await db.any('SELECT * FROM shoes WHERE brand = $1', [brand])
-            return results;
+            return await db.any('SELECT * FROM shoes WHERE brand = $1', [brand]);
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function allSizes(size) {
+    const allSizes = async (size) => {
         try {
-            const results = await db.any('SELECT * FROM shoes WHERE shoe_size = $1', [size])
-            return results;
+            return await db.any('SELECT * FROM shoes WHERE shoe_size = $1', [size]);
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function getBrandAndSize(shoe_size, brand) {
+    const getAllSizes = async () => {
         try {
-            const results = await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand])
-            return results;
+            return await db.any('SELECT DISTINCT shoe_size FROM shoes');
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function update(stock_no, shoe_id) {
+    const getAllColor = async () => {
         try {
-            await db.none('UPDATE shoes SET stock = $1 WHERE shoe_id =$2', [stock_no, shoe_id])
+            return await db.any('SELECT DISTINCT color FROM shoes');
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
-    async function add_shoes(shoe_details) {
+    const filterByColors = async (color) => {
         try {
-            let data = [
+            let results = await db.any('SELECT * FROM shoes WHERE color = $1', [color]);
+            console.log(results);
+            return results
+        } catch (error) {
+            return handleDatabaseError(error);
+        }
+    };
+
+
+    const getBrandAndSize = async (shoe_size, brand) => {
+        try {
+            return await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
+        } catch (error) {
+            return handleDatabaseError(error);
+        }
+    };
+
+    const update = async (stock_no, shoe_id) => {
+        try {
+            await db.none('UPDATE shoes SET stock = $1 WHERE shoe_id = $2', [stock_no, shoe_id]);
+        } catch (error) {
+            return handleDatabaseError(error);
+        }
+    };
+
+    const add_shoes = async (shoe_details) => {
+        try {
+            const data = [
                 shoe_details.brand,
                 shoe_details.shoe_name,
                 shoe_details.color,
                 shoe_details.shoe_size,
                 shoe_details.price,
                 shoe_details.quantity,
-                shoe_details.img_url]
+                shoe_details.img_url
+            ];
 
-            await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6)', [data])
-
+            await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6)', data);
         } catch (error) {
-            return false
+            return handleDatabaseError(error);
         }
-    }
+    };
 
     return {
         all,
@@ -78,7 +103,10 @@ export default function ShoesDB(db) {
         allSizes,
         add_shoes,
         shoe_name,
+        getAllSizes,
+        getAllColor,
         getBrandName,
+        filterByColors,
         getBrandAndSize
-    }
+    };
 }
