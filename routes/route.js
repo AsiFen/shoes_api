@@ -42,7 +42,7 @@ export default function Router(shoesDB) {
         const size = req.params.size;
         const brand = req.params.brandname;
         const getBrandAndSize = await shoesDB.getBrandAndSize(size, brand);
-        console.log(size, brand);
+        console.log(getBrandAndSize);
         res.json(getBrandAndSize);
     }
 
