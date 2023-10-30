@@ -1,3 +1,4 @@
+
 export default function ShoesDB(db) {
     const handleDatabaseError = (error) => {
         //console.error(error);
@@ -55,7 +56,6 @@ export default function ShoesDB(db) {
     const filterByColors = async (color) => {
         try {
             let results = await db.any('SELECT * FROM shoes WHERE color = $1', [color]);
-            console.log(results);
             return results
         } catch (error) {
             return handleDatabaseError(error);
@@ -65,7 +65,9 @@ export default function ShoesDB(db) {
 
     const getBrandAndSize = async (shoe_size, brand) => {
         try {
-            return await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
+            let results =  await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
+            console.log(results);
+            return results;
         } catch (error) {
             return handleDatabaseError(error);
         }

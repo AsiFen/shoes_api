@@ -28,7 +28,6 @@ export default function Router(shoesDB) {
 
     async function filterByColor(req, res) {
         const colour = req.params.color;
-        console.log(colour);
         let colors = await shoesDB.filterByColors(colour);
         res.json(colors)
 
@@ -41,8 +40,9 @@ export default function Router(shoesDB) {
 
     async function brand_and_size(req, res) {
         const size = req.params.size;
-        const brand = req.params.brand;
+        const brand = req.params.brandname;
         const getBrandAndSize = await shoesDB.getBrandAndSize(size, brand);
+        console.log(size, brand);
         res.json(getBrandAndSize);
     }
 
@@ -67,6 +67,8 @@ export default function Router(shoesDB) {
         await shoesDB.add_shoes(shoeDetails);
         res.end();
     }
+
+    
 
     return {
         add,
