@@ -65,8 +65,7 @@ export default function ShoesDB(db) {
 
     const getBrandAndSize = async (shoe_size, brand) => {
         try {
-            let results =  await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
-            console.log(results);
+            let results = await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
             return results;
         } catch (error) {
             return handleDatabaseError(error);
@@ -87,15 +86,15 @@ export default function ShoesDB(db) {
                 shoe_details.brand,
                 shoe_details.shoe_name,
                 shoe_details.color,
-                shoe_details.shoe_size,
+                (shoe_details.shoe_size),
                 shoe_details.price,
-                shoe_details.quantity,
+                (shoe_details.stock),
                 shoe_details.img_url
-            ];
-
-            await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6)', data);
+            ]
+            await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7)', data);
+            
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 

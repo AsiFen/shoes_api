@@ -42,7 +42,6 @@ export default function Router(shoesDB) {
         const size = req.params.size;
         const brand = req.params.brandname;
         const getBrandAndSize = await shoesDB.getBrandAndSize(size, brand);
-        console.log(getBrandAndSize);
         res.json(getBrandAndSize);
     }
 
@@ -50,7 +49,6 @@ export default function Router(shoesDB) {
         const shoe_id = req.params.id;
         const stock = req.body.stock_number;
         await shoesDB.update(shoe_id, stock);
-        res.end();
     }
 
     async function add(req, res) {
@@ -58,14 +56,13 @@ export default function Router(shoesDB) {
             brand: req.body.brand,
             shoe_name: req.body.shoe_name,
             color: req.body.color,
-            shoe_size: req.body.size,
+            shoe_size: req.body.shoe_size,
             price: req.body.price,
-            stock: req.body.quantity,
+            stock: req.body.stock,
             img_url: req.body.img_url
         };
 
         await shoesDB.add_shoes(shoeDetails);
-        res.end();
     }
 
     
