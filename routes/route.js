@@ -65,13 +65,26 @@ export default function Router(shoesDB) {
         await shoesDB.add_shoes(shoeDetails);
     }
 
-    
+    async function getCart(req, res) {
+        const shoeId = req.params.id;
+        let results = await shoesDB.getFromCart()
+        console.log(results, 'x');
+        res.json(results)
+    }
+
+    async function addCart(req, res) {
+        const shoeId = req.params.id;
+        let results = await shoesDB.addToCart(shoeId)
+        res.json(results)
+    }
 
     return {
         add,
         show,
         allSize,
+        addCart,
         getBrand,
+        getCart,
         brand_name,
         getAllsize,
         update_stock,

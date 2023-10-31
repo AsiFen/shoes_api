@@ -51,6 +51,10 @@ app.get('/api/shoes/brand/:brandname/size/:size', router.brand_and_size)
 app.get('/api/shoes/colors', router.getAllColors)
 app.get('/api/shoes/colors/:color', router.filterByColor)
 
+app.get('/api/shoes/cart', router.getCart)
+
+app.get('/api/shoes/:id', router.addCart)
+
 app.post('/api/shoes/sold/:id', router.update_stock)
 
 app.post('/api/shoes', router.add)

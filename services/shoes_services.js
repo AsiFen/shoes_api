@@ -92,11 +92,31 @@ export default function ShoesDB(db) {
                 shoe_details.img_url
             ]
             await db.none('INSERT INTO shoes (brand, shoe_name, color, shoe_size, price, stock, img_url) VALUES ($1, $2, $3, $4, $5, $6, $7)', data);
-            
         } catch (error) {
             return error
         }
     };
+
+    async function getFromCart() {
+        try {
+          let result = await db.any(
+            `SELECT * FROM shoes JOIN cart ON shoes.id = cart.shoe_id`
+          );
+          console.log(result);
+          return result;
+        } catch (error) {
+          return error;
+        }
+      }
+      
+
+    async function addToCart(shoe_id){
+        try {
+        await db.none('insert into cart (shoe_id) VALUES ($1)', [shoe_id])
+        } catch (error) {
+          return error  
+        }
+    }
 
     return {
         all,
@@ -104,6 +124,8 @@ export default function ShoesDB(db) {
         allSizes,
         add_shoes,
         shoe_name,
+        getFromCart,
+        addToCart,
         getAllSizes,
         getAllColor,
         getBrandName,

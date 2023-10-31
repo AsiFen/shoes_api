@@ -17,9 +17,9 @@ create table shoes (
 -- )
 
 /* user cart */
--- create table cart (
---     cartd_id serial primary key,
---     shoe_id integer not null,
---     paidoff varchar not null,
---     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
--- )
+create table cart (
+    cartd_id serial primary key,
+    shoe_id integer not null,
+    -- paidoff varchar not null,
+    FOREIGN KEY(shoe_id) REFERENCES shoes(id)
+)
