@@ -76,7 +76,7 @@ export default function ShoesDB(db) {
         try {
             await db.none('UPDATE shoes SET stock = $1 WHERE shoe_id = $2', [stock_no, shoe_id]);
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -99,22 +99,22 @@ export default function ShoesDB(db) {
 
     async function getFromCart() {
         try {
-          let result = await db.any(
-            `SELECT * FROM shoes JOIN cart ON shoes.id = cart.shoe_id`
-          );
-          console.log(result);
-          return result;
+            let result = await db.any(
+                `SELECT * FROM shoes JOIN cart ON shoes.id = cart.shoe_id`
+            );
+            console.log(result);
+            return result;
         } catch (error) {
-          return error;
+            return error;
         }
-      }
-      
+    }
 
-    async function addToCart(shoe_id){
+
+    async function addToCart(shoe_id) {
         try {
-        await db.none('insert into cart (shoe_id) VALUES ($1)', [shoe_id])
+            await db.none('insert into cart (shoe_id) VALUES ($1)', [shoe_id])
         } catch (error) {
-          return error  
+            return error
         }
     }
 
