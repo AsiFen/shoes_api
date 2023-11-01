@@ -67,7 +67,6 @@ export default function ShoesDB(db) {
         try {
             let results = await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
             return results;
-            console.log('me');
         } catch (error) {
             return handleDatabaseError(error);
         }
