@@ -22,4 +22,7 @@ create table cart (
     shoe_id integer not null,
     -- paidoff varchar not null,
     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
-)
+);
+
+ALTER TABLE cart
+ADD CONSTRAINT unique_shoe_id UNIQUE (shoe_id);

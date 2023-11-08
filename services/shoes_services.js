@@ -1,7 +1,7 @@
 
 export default function ShoesDB(db) {
     const handleDatabaseError = (error) => {
-        //console.error(error);
+        console.error(error);
         return error;
     };
 
@@ -102,7 +102,6 @@ export default function ShoesDB(db) {
             let result = await db.any(
                 `SELECT * FROM shoes JOIN cart ON shoes.id = cart.shoe_id`
             );
-            console.log(result);
             return result;
         } catch (error) {
             return error;
@@ -112,11 +111,18 @@ export default function ShoesDB(db) {
 
     async function addToCart(shoe_id) {
         try {
-            await db.none('insert into cart (shoe_id) VALUES ($1)', [shoe_id])
+            const existingCartItem = await db.oneOrNone('SELECT shoe_id FROM cart WHERE shoe_id = $1', [shoe_id]);
+
+            if (existingCartItem) {
+                return "This shoe is already in the cart.";
+            } else {
+                await db.none('INSERT INTO cart (shoe_id) VALUES ($1)', [shoe_id]);
+            }
         } catch (error) {
-            return error
+            return error;
         }
     }
+
 
     return {
         all,
