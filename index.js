@@ -66,7 +66,8 @@ app.get('/api/shoes/:id', cart_route.addCart)
 app.post('/api/shoes/sold/:id', router.update_stock)
 app.post('/api/shoes', router.add)
 
-app.post('/api/user', user_signup_route.user_signup)
+app.post('/signup', user_signup_route.user_signup)
+app.post('/login', user_signup_route.user_login)
 
 
 

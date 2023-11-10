@@ -6,7 +6,6 @@ export default function UsersDB(db) {
             try {
                 //check if user is existing
                 let existingUser = await db.any('select * from users where username = $1', [username])
-                console.log(existingUser, 'exisiting user');
 
                 if (!existingUser) {
                     throw new Error('User already exists');
@@ -14,10 +13,8 @@ export default function UsersDB(db) {
                     //have password encryption here
                     await db.any('insert into users (username, password) values ($1, $2)', [username, password])
                     let newUserId = await db.any('select id from users where username =$1', [username])
-                    console.log(newUserId[0].id, 'userid for username');
                     //create cart for new user
                     let userCartId = await db.any('insert into cart (user_id) values ($1) RETURNING id', [newUserId[0].id])
-                    console.log(userCartId, 'user cart id');
                     //return message for new user
                     return { message: 'User created successfully', userId: newUserId[0].id, cartid: userCartId[0].id };
                 }
@@ -31,10 +28,20 @@ export default function UsersDB(db) {
         login: async (username, password) => {
             try {
                 // Verify values are correct from the db.
-                let username = await db.one('select * from users where username = $1 and password = $2', [username, password])
-                if (username) {
-                    // if correct, send a message
-                    return { message: 'Welcome back!' };
+                let results = await db.any('select * from users where username = $1', [username])
+               // console.log(results);
+
+                if (results) {
+                    //verify password
+                    if (results[0].password === password) {
+                        // if correct, retrive cart
+                        console.log(results[0].username);
+                        let getCart = await db.one('select * from cart where user_id = $1', [results[0].id])
+                        return { message: 'Welcome back!', user_cart: getCart };
+                    }
+                    else {
+                        return { message: 'Password incorrect.' }
+                    }
                 }
                 else {
                     return { message: 'Username not found.' };
@@ -47,7 +54,7 @@ export default function UsersDB(db) {
 
         /*
     login:
-    get user from db using username, check the results,
+    get userid from db using username, check the results,
     if not results it means username does not exist, if theres results, 
     verify db password with entered password, if its correct log user successfully.
     

@@ -3,7 +3,9 @@ export default function ShoesDB(db) {
     return {
         all: async () => {
             try {
-                return await db.any('SELECT * FROM shoes');
+                let allx = await db.any('SELECT * FROM shoes');
+                console.log(allx);
+                return allx
             } catch (error) {
                 return error
             }

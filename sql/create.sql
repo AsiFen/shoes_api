@@ -16,12 +16,13 @@ create table shoes (
 --     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
 -- )
 
-
+-- user details
 create table users (
     id serial primary key,
     username varchar(100) not null, 
     password varchar(100) not null
 );
+-- all available carts
 create table cart (
     id serial primary key,
     user_id integer not null, 
