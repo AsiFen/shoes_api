@@ -3,7 +3,9 @@ export default function SignUpRoute(users) {
         user_signup: async (req, res) => {
             let users_name = req.body.username;
             let user_password = req.body.password;
+
             let results = await users.signup(users_name, user_password);
+            console.log(results);
             res.json(results)
         }
     }

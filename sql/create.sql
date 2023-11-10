@@ -34,9 +34,9 @@ create table user_cart (
     id serial primary key,
     shoe_id integer not null,
     cart_id integer not null,
-    FOREIGN KEY(cart_id) REFERENCES cart(id)
+    FOREIGN KEY(cart_id) REFERENCES cart(id),
     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
 );
 
-ALTER TABLE cart
-ADD CONSTRAINT unique_shoe_id UNIQUE (shoe_id);
+-- ALTER TABLE cart
+-- ADD CONSTRAINT unique_shoe_id UNIQUE (shoe_id);

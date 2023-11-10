@@ -6,7 +6,7 @@ VALUES ('Nike', 'Air Dunk EWT', 'Yellow', 6, 1200, 100, 'https://assets.superbal
        ('New Balance', '530', 'Nude', 4, 2999, 56, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/3300961/original.jpg'),
        ('New Balance', '202R', 'Black', 5, 999, 1, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/3317402/original.jpg'),
        ('Adidas', 'Forum Low', 'White', 9, 1500, 90, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/2245804/original.jpg'),
-       ('Adidas','ZX 2K Boost', 'Black', 7, 3200, 922, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/1952284/original.jpg'),
+       ('Adidas','ZX 2K Boost', 'Black', 7, 3200, 2, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/1952284/original.jpg'),
        ('Puma','Mayze Crashed', 'Mint',5, 1800, 2, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/3360861/original.jpg'),
        ('Puma','Suede RipNDip 2', 'Blue',5, 1800, 44, 'https://assets.superbalistcdn.co.za/500x720/filters:quality(75):format(jpg)/3360409/original.jpg');
 

@@ -22,8 +22,10 @@ export default function Router(shoesDB) {
     }
 
     async function getAllColors(req, res) {
+
         const allColors = await shoesDB.getAllColor();
         res.json(allColors);
+        
     }
 
     async function filterByColor(req, res) {
