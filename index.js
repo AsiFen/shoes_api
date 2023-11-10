@@ -11,11 +11,20 @@ import session from 'express-session';
 //conection to the database using pg-promise and dotevn
 import db from './db/connection.js';
 import ShoesDB from './services/shoes_services.js';
-import Router from './routes/route.js';
+import CartDB from './services/cart_services.js'
+import UsersDB from './services/users_services.js';
+
+import Router from './routes/shoe_display.js';
+import CartRoute from './routes/cart_route.js';
+import SignUpRoute from './routes/signup_route.js';
 
 let shoesDB = ShoesDB(db);
+let cartDB = CartDB(db);
+let usersDB = UsersDB(db);
 
 let router = Router(shoesDB);
+let cart_route = CartRoute(cartDB);
+let user_signup_route = SignUpRoute(usersDB);
 
 let app = express();
 
@@ -51,13 +60,15 @@ app.get('/api/shoes/brand/:brandname/size/:size', router.brand_and_size)
 app.get('/api/shoes/colors', router.getAllColors)
 app.get('/api/shoes/colors/:color', router.filterByColor)
 
-app.get('/api/shoes/cart', router.getCart)
-
-app.get('/api/shoes/:id', router.addCart)
+app.get('/api/shoes/cart', cart_route.getCart)
+app.get('/api/shoes/:id', cart_route.addCart)
 
 app.post('/api/shoes/sold/:id', router.update_stock)
-
 app.post('/api/shoes', router.add)
+
+app.post('/api/user', user_signup_route.user_signup)
+
+
 
 //process the enviroment the port is running on
 let PORT = process.env.PORT || 9999;

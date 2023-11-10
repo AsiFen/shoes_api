@@ -16,11 +16,25 @@ create table shoes (
 --     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
 -- )
 
-/* user cart */
+
+create table users (
+    id serial primary key,
+    username varchar(100) not null, 
+    password varchar(100) not null
+);
 create table cart (
-    cartd_id serial primary key,
+    id serial primary key,
+    user_id integer not null, 
+    paidoff boolean default false,
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+/* user cart */
+create table user_cart (
+    id serial primary key,
     shoe_id integer not null,
-    -- paidoff varchar not null,
+    cart_id integer not null,
+    FOREIGN KEY(cart_id) REFERENCES cart(id)
     FOREIGN KEY(shoe_id) REFERENCES shoes(id)
 );
 

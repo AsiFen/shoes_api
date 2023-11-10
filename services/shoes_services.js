@@ -1,15 +1,12 @@
 
 export default function ShoesDB(db) {
-    const handleDatabaseError = (error) => {
-        console.error(error);
-        return error;
-    };
+
 
     const all = async () => {
         try {
             return await db.any('SELECT * FROM shoes');
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -17,7 +14,7 @@ export default function ShoesDB(db) {
         try {
             return await db.any('SELECT DISTINCT brand FROM shoes');
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -25,7 +22,7 @@ export default function ShoesDB(db) {
         try {
             return await db.any('SELECT * FROM shoes WHERE brand = $1', [brand]);
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -33,7 +30,7 @@ export default function ShoesDB(db) {
         try {
             return await db.any('SELECT * FROM shoes WHERE shoe_size = $1', [size]);
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -41,7 +38,7 @@ export default function ShoesDB(db) {
         try {
             return await db.any('SELECT DISTINCT shoe_size FROM shoes');
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -49,7 +46,7 @@ export default function ShoesDB(db) {
         try {
             return await db.any('SELECT DISTINCT color FROM shoes');
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -58,7 +55,7 @@ export default function ShoesDB(db) {
             let results = await db.any('SELECT * FROM shoes WHERE color = $1', [color]);
             return results
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -68,7 +65,7 @@ export default function ShoesDB(db) {
             let results = await db.any('SELECT * FROM shoes WHERE shoe_size = $1 AND brand = $2', [shoe_size, brand]);
             return results;
         } catch (error) {
-            return handleDatabaseError(error);
+            return error
         }
     };
 
@@ -97,41 +94,13 @@ export default function ShoesDB(db) {
         }
     };
 
-    async function getFromCart() {
-        try {
-            let result = await db.any(
-                `SELECT * FROM shoes JOIN cart ON shoes.id = cart.shoe_id`
-            );
-            return result;
-        } catch (error) {
-            return error;
-        }
-    }
-
-
-    async function addToCart(shoe_id) {
-        try {
-            const existingCartItem = await db.oneOrNone('SELECT shoe_id FROM cart WHERE shoe_id = $1', [shoe_id]);
-
-            if (existingCartItem) {
-                return "This shoe is already in the cart.";
-            } else {
-                await db.none('INSERT INTO cart (shoe_id) VALUES ($1)', [shoe_id]);
-            }
-        } catch (error) {
-            return error;
-        }
-    }
-
-
+  
     return {
         all,
         update,
         allSizes,
         add_shoes,
         shoe_name,
-        getFromCart,
-        addToCart,
         getAllSizes,
         getAllColor,
         getBrandName,
