@@ -4,7 +4,6 @@ export default function ShoesDB(db) {
         all: async () => {
             try {
                 let allx = await db.any('SELECT * FROM shoes');
-                console.log(allx);
                 return allx
             } catch (error) {
                 return error
@@ -21,7 +20,7 @@ export default function ShoesDB(db) {
 
         shoe_name: async (brand) => {
             try {
-                return await db.any('SELECT * FROM shoes WHERE brand : $1', [brand]);
+                return await db.any('SELECT * FROM shoes WHERE brand = $1', [brand]);
             } catch (error) {
                 return error
             }
@@ -29,7 +28,7 @@ export default function ShoesDB(db) {
 
         allSizes: async (size) => {
             try {
-                return await db.any('SELECT * FROM shoes WHERE shoe_size : $1', [size]);
+                return await db.any('SELECT * FROM shoes WHERE shoe_size = $1', [size]);
             } catch (error) {
                 return error
             }
@@ -53,7 +52,7 @@ export default function ShoesDB(db) {
 
         filterByColors: async (color) => {
             try {
-                let results = await db.any('SELECT * FROM shoes WHERE color : $1', [color]);
+                let results = await db.any('SELECT * FROM shoes WHERE color = $1', [color]);
                 return results
             } catch (error) {
                 return error

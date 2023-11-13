@@ -1,17 +1,24 @@
-export default function CartRoute(shoesDB) {
-
+export default function CartRoute(cartDB) {
     return {
-        addCart: async (req, res) => {
+        addToCart: async (req, res) => {
             const shoeId = req.params.id;
-            let results = await shoesDB.addToCart(shoeId)
-            console.log(results, 'x');
-            res.json(results)
+            const userId = req.params.userId; // Assuming you have the userId in the request parameters
+
+            try {
+                const result = await cartDB.addToCart(shoeId, userId);
+                res.json(result);
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
         },
         getCart: async (req, res) => {
-            const shoeId = req.params.id;
-            let results = await shoesDB.getFromCart()
-            console.log(results);
-            res.json(results)
+            const userId = req.params.userId;
+            try {
+                const results = await cartDB.getUsersCart(userId);
+                res.json(results);
+            } catch (error) {
+                res.status(500).json({ error: error.message });
+            }
         }
-    }
+    };
 }

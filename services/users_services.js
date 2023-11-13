@@ -35,7 +35,6 @@ export default function UsersDB(db) {
                     //verify password
                     if (results[0].password === password) {
                         // if correct, retrive cart
-                        console.log(results[0].username);
                         let getCart = await db.one('select * from cart where user_id = $1', [results[0].id])
                         return { message: 'Welcome back!', user_cart: getCart };
                     }

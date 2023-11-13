@@ -60,8 +60,8 @@ app.get('/api/shoes/brand/:brandname/size/:size', router.brand_and_size)
 app.get('/api/shoes/colors', router.getAllColors)
 app.get('/api/shoes/colors/:color', router.filterByColor)
 
-app.get('/api/shoes/cart', cart_route.getCart)
-app.get('/api/shoes/:id', cart_route.addCart)
+app.post('/cart/:userId/add/:id', cart_route.addToCart);
+app.get('/cart/:userId', cart_route.getCart);
 
 app.post('/api/shoes/sold/:id', router.update_stock)
 app.post('/api/shoes', router.add)
